@@ -1,9 +1,9 @@
-package org.homework.module14.service.impl;
+package org.homework.module14.app.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.homework.module14.dao.NoteDAO;
-import org.homework.module14.model.Note;
-import org.homework.module14.service.NoteService;
+import org.homework.module14.app.dao.NoteDAO;
+import org.homework.module14.app.model.Note;
+import org.homework.module14.app.service.NoteService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

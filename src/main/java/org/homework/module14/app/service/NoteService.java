@@ -1,6 +1,6 @@
-package org.homework.module14.service;
+package org.homework.module14.app.service;
 
-import org.homework.module14.model.Note;
+import org.homework.module14.app.model.Note;
 
 import java.util.List;
 

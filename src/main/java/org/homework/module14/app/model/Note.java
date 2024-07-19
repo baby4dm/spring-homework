@@ -1,4 +1,4 @@
-package org.homework.module14.model;
+package org.homework.module14.app.model;
 
 import lombok.Data;
 
