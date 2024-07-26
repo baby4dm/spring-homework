@@ -18,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NoteController {
     private final NoteService noteService;
+    private static final String REDIRECT = "redirect:/note/list";
     @GetMapping("/list")
     public ModelAndView getNoteList(){
         ModelAndView modelAndView = new ModelAndView("notes");
@@ -29,7 +30,7 @@ public class NoteController {
     @PostMapping("/delete")
     public ModelAndView delete(@RequestParam Long id) {
         noteService.deleteById(id);
-        return new ModelAndView("redirect:/note/list");
+        return new ModelAndView(REDIRECT);
     }
     @GetMapping("/edit")
     public ModelAndView editNoteForm(@RequestParam Long id){
@@ -42,6 +43,19 @@ public class NoteController {
     @PostMapping("/edit")
     public ModelAndView edit(@ModelAttribute Note note){
         noteService.update(note);
-        return new ModelAndView("redirect:/note/list");
+        return new ModelAndView(REDIRECT);
+    }
+
+    @GetMapping("/create")
+    public ModelAndView createNoteForm(){
+        ModelAndView modelAndView = new ModelAndView("create");
+        modelAndView.addObject("note", new Note());
+        return modelAndView;
+    }
+
+    @PostMapping("/create")
+    public ModelAndView createNote(@ModelAttribute Note note){
+        noteService.add(note);
+        return new ModelAndView(REDIRECT);
     }
 }

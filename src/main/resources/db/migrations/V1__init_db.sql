@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS note(
+    id BIGSERIAL,
+    name VARCHAR(255),
+    content VARCHAR(255),
+    CONSTRAINT note_PK PRIMARY KEY (id)
+)
