@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/note")
+@RequestMapping("/notes")
 @RequiredArgsConstructor
 public class NoteController {
     private final NoteService noteService;
 
-    @GetMapping("/list")
+    @GetMapping()
     public ResponseEntity<List<Note>> getNoteList() {
         return ResponseEntity.ok(noteService.listAll());
     }
