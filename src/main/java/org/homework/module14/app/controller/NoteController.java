@@ -28,6 +28,11 @@ public class NoteController {
         return ResponseEntity.ok(noteService.listAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Note> getNote(@PathVariable Long id){
+        return ResponseEntity.ok(noteService.getById(id));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         noteService.deleteById(id);
