@@ -2,6 +2,7 @@ package org.homework.module14.app.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.homework.module14.app.model.Note;
+import org.homework.module14.app.model.requests.CreateNoteRequest;
 import org.homework.module14.app.repo.NoteRepository;
 import org.homework.module14.app.service.NoteService;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,10 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Note add(Note note) {
+    public Note add(CreateNoteRequest request) {
+        Note note = new Note();
+        note.setName(request.name());
+        note.setContent(request.content());
         return noteRepository.save(note);
     }
 
@@ -31,11 +35,12 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     @Transactional
-    public void update(Note note) {
-        Note founded = getById(note.getId());
-        founded.setContent(note.getContent());
-        founded.setName(note.getName());
+    public Note update(Long id, CreateNoteRequest request) {
+        Note founded = getById(id);
+        founded.setContent(request.content());
+        founded.setName(request.name());
         noteRepository.flush();
+        return founded;
     }
 
     @Override
