@@ -10,6 +10,17 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:15
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: jdbc:postgresql://localhost:5432/spring_homework
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: --health-cmd "pg_isready -U your_username" --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -24,4 +35,4 @@ jobs:
         run: mvn -B package --file pom.xml
 
       - name: Run tests
-        run: mvn test
+        run: mvn test -X -Duser.language=en -Duser.country=US
