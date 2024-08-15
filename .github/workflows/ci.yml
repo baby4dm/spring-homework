@@ -16,10 +16,10 @@ jobs:
         ports:
           - 5432:5432
         env:
-          POSTGRES_DB: jdbc:postgresql://localhost:5432/spring_homework
+          POSTGRES_DB: spring_homework
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-
+        options: --health-cmd "pg_isready -U your_username" --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
       - name: Checkout code
@@ -30,6 +30,17 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '21'
+
+      - name: Wait for PostgreSQL to start
+        run: |
+          until pg_isready -h localhost -p 5432 -U your_username; do
+            echo "Waiting for PostgreSQL..."
+            sleep 5
+          done
+
+      - name: Create database
+        run: |
+          psql -h localhost -U your_username -c "CREATE DATABASE spring_homework;" || echo "Database already exists."
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
